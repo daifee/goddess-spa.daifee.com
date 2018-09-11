@@ -4,7 +4,6 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
-import './App.css';
 
 
 class App extends React.Component {
