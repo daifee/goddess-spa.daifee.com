@@ -1,4 +1,4 @@
-import * as globalStore from '../index';
+// import * as globalStore from '../index';
 
 
 const INIT_STATE = {
