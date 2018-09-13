@@ -1,0 +1,45 @@
+
+
+.components-blog {
+  padding: 15px 0;
+
+  .picture-wrap {
+    $picture-space: 5px;
+
+    ul, li {
+      padding: 0;
+      list-style: none;
+    }
+
+    ul {
+      overflow: hidden;
+      margin-right: -$picture-space;
+    }
+
+    li {
+      float: left;
+      position: relative;
+      box-sizing: border-box;
+      width: 33.33%;
+      padding-right: $picture-space;
+      padding-bottom: $picture-space;
+    }
+
+    .placeholder {
+      padding-bottom: 100%;
+    }
+
+    .img {
+      position: absolute;
+      left: 0;
+      right: $picture-space;
+      top: 0;
+      bottom: $picture-space;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      background-color: #ededed;
+    }
+  }
+}

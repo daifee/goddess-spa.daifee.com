@@ -1,6 +1,7 @@
 import React from 'react';
 // import {Link} from 'react-router-dom';
 import {NavBar, Tabs} from 'antd-mobile';
+import Blog from '../../components/Blog';
 import './styles.css';
 
 const TABS = [
@@ -32,6 +33,10 @@ export default class Home extends React.Component {
   }
 
   renderContent(tab) {
-    return (<div className='content'>{tab.title}</div>);
+    return (
+      <div className='content'>
+        <Blog />
+      </div>
+    );
   }
 }
