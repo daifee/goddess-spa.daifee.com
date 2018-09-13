@@ -1,0 +1,31 @@
+
+
+#home {
+  min-height: 100%;
+  background-color: #fff;
+
+  .am-navbar {
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .am-tabs-tab-bar-wrap {
+    position: fixed;
+    z-index: 2;
+    top: 45px;
+    left: 0;
+    width: 100%;
+  }
+
+  .am-tabs-content-wrap {
+    padding-top: 90px;
+  }
+
+  .content {
+    // height: 2000px;
+    // background: rgba($color: red, $alpha: .3)
+  }
+}
