@@ -2,7 +2,7 @@ import React from 'react';
 // import {Link} from 'react-router-dom';
 import {NavBar, Tabs} from 'antd-mobile';
 import Page from '../../components/Page';
-import Blog from '../../components/Blog';
+import BlogList from '../../components/BlogList';
 import './styles.css';
 
 const TABS = [
@@ -33,11 +33,18 @@ export default class Home extends React.Component {
     );
   }
 
-  renderContent(tab) {
+  renderContent = (tab) => {
     return (
       <div className='content'>
-        <Blog />
+        <BlogList
+          blogList={[{id: 'a'}, {id: 'b'}]}
+          renderFooter={this.renderFooter}
+        />
       </div>
     );
+  }
+
+  renderFooter = () => {
+    return (<footer>只显示2条内容...</footer>);
   }
 }

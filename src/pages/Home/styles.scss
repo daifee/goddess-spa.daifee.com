@@ -1,7 +1,8 @@
 
 
 #home {
-  // background-color:
+  // background-color: #fff;
+
   .am-navbar {
     position: fixed;
     z-index: 3;
@@ -25,5 +26,10 @@
   .content {
     // height: 2000px;
     // background: rgba($color: red, $alpha: .3)
+  }
+
+  footer {
+    // background: #fff;
+    text-align: center;
   }
 }
