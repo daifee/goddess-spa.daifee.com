@@ -1,6 +1,7 @@
 import React from 'react';
 // import {Link} from 'react-router-dom';
 import {NavBar, Tabs} from 'antd-mobile';
+import Page from '../../components/Page';
 import Blog from '../../components/Blog';
 import './styles.css';
 
@@ -14,7 +15,7 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <main id='home'>
+      <Page id='home'>
         <NavBar
           mode='light'
           leftContent='主页'
@@ -28,7 +29,7 @@ export default class Home extends React.Component {
         >
           {this.renderContent}
         </Tabs>
-      </main>
+      </Page>
     );
   }
 
