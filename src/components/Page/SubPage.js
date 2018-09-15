@@ -17,6 +17,12 @@ export default class SubPage extends React.Component {
     })
   };
 
+  static defaultProps = {
+    navBar: {
+      children: '标题'
+    }
+  };
+
   render() {
     const {children, navBar, className, ...rest} = this.props;
     const cls = classNames('components-page components-sub-page', className)
@@ -30,16 +36,17 @@ export default class SubPage extends React.Component {
   }
 
   renderNavBar(props) {
+    const {children, ...rest} = props;
     return (
       <NavBar
         mode='light'
-        title='标题'
         leftContent='返回'
         onLeftClick={this.handleBack}
-        rightContent='首页'
-        onRightClick={this.handleHome}
-        {...props}
-      />
+        rightContent={(
+          <span onClick={this.handleHome}>首页</span>
+        )}
+        {...rest}
+      >{children}</NavBar>
     );
   }
 

@@ -2,5 +2,17 @@
 
 .components-page {
   height: 100%;
-  background-color: #fff;
+  box-sizing: border-box;
+}
+
+
+.components-sub-page {
+  padding-top: 45px;
+
+  > .am-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
 }

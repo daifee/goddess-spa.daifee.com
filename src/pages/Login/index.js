@@ -1,13 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Button, List, InputItem, WingBlank, WhiteSpace} from 'antd-mobile';
+import {SubPage} from '../../components/Page';
 import './styles.css';
 
 export default class Login extends React.Component {
 
   render() {
     return (
-      <main id='login'>
+      <SubPage id='login' navBar={{children: '登录'}}>
         <h1 className='title'>daifee.com</h1>
         <List>
           <InputItem
@@ -35,7 +36,7 @@ export default class Login extends React.Component {
             <Link to='/register'>免费注册</Link>
           </p>
         </WingBlank>
-      </main>
+      </SubPage>
     );
   }
 }
