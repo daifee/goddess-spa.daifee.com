@@ -21,16 +21,23 @@ function getType(url) {
 }
 
 class Home extends React.Component {
+  unlisten = null;
 
   componentDidMount() {
     const {history, type} = this.props;
 
     dispatch(`${type}/get`);
 
-    history.listen((newLocation) => {
+    this.unlisten = history.listen((newLocation) => {
+      if (newLocation.pathname !== '/') return;
+
       const type = getType(newLocation.search);
       dispatch(`${type}/get`);
     });
+  }
+
+  componentWillUnmount() {
+    this.unlisten();
   }
 
   handleTabClick = (tabData) => {
