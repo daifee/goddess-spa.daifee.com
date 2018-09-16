@@ -7,13 +7,30 @@
  * *
  * * 像多store那样解决了命名冲突，使用却与单store一样简单。
  */
-import store from './store';
+
+import { init } from '@rematch/core';
+import {set as setStore} from './store';
+// 全局models
 import {
+  scopeModels as globalModels,
   getScopeState,
   scopeDispatch
 } from './scope';
+import {scopeModels as homeModels} from '../pages/Home/store';
+
+
+const store = init({
+  name: 'store',
+  models: {
+    ...globalModels,
+    ...homeModels
+  }
+});
+
+setStore(store);
 
 export default store;
+
 export {
   getScopeState as getState,
   scopeDispatch as dispatch

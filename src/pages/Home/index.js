@@ -1,13 +1,12 @@
 import React from 'react';
 // import {Link} from 'react-router-dom';
 import {NavBar, Tabs} from 'antd-mobile';
+import {connect} from 'react-redux';
+import {getState, dispatch} from './store';
 import Page from '../../components/Page';
 import BlogList from '../../components/BlogList';
 import './styles.css';
 
-import * as microBlog from '../../services/microBlog';
-
-window.microBlog = microBlog;
 
 const TABS = [
   {title: '美女'},
@@ -15,9 +14,14 @@ const TABS = [
   {title: '萌宠'}
 ];
 
-export default class Home extends React.Component {
+class Home extends React.Component {
+
+  componentDidMount() {
+    dispatch('animal/get');
+  }
 
   render() {
+    console.log(this.props);
     return (
       <Page id='home'>
         <NavBar
@@ -52,3 +56,11 @@ export default class Home extends React.Component {
     return (<footer>只显示2条内容...</footer>);
   }
 }
+
+export default connect((rootState, props) => {
+  const state = getState(rootState);
+  return {
+    ...state,
+    ...props
+  };
+})(Home);
