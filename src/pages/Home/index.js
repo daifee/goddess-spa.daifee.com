@@ -5,6 +5,10 @@ import Page from '../../components/Page';
 import BlogList from '../../components/BlogList';
 import './styles.css';
 
+import * as microBlog from '../../services/microBlog';
+
+window.microBlog = microBlog;
+
 const TABS = [
   {title: '美女'},
   {title: '风景'},

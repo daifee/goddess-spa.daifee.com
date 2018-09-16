@@ -1,4 +1,6 @@
 
+import {goddess} from '../utils/http';
+
 // 发博客
 export function post() {
   // todo
@@ -15,8 +17,9 @@ export function del() {
 }
 
 // 获取推荐博客
-export function getRecommended() {
-  // todo
+export async function getRecommended(type = 'goddess') {
+  const api = '/v1/micro-blogs/'
+  return await goddess.get(api, {params: {type}});
 }
 
 
