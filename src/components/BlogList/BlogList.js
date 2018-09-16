@@ -32,10 +32,10 @@ export default class BlogList extends React.Component {
   }
 
   renderRow(row, sectionId, rowId) {
-    return (<BlogItem />);
+    return (<BlogItem blog={row} />);
   }
 
-  renderFooter() {
+  renderFooter = () => {
     return 'loading...';
   }
 }
