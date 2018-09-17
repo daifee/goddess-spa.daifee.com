@@ -6,7 +6,7 @@ import utilUrl from 'url';
 import {getState, dispatch} from './store';
 import Page from '../../components/Page';
 import BlogList from '../../components/BlogList';
-import * as status from '../../utils/status';
+import {FAILURE, SUCCESS} from '../../utils/status';
 import './styles.css';
 
 
@@ -27,7 +27,9 @@ class Home extends React.Component {
   componentDidMount() {
     const {history, type} = this.props;
 
-    dispatch(`${type}/get`);
+    dispatch(`${type}/get`).then((value) => {
+      console.log(value);
+    });
 
     this.unlisten = history.listen((newLocation) => {
       if (newLocation.pathname !== '/') return;
@@ -90,9 +92,9 @@ class Home extends React.Component {
   renderFooter = () => {
     const {tabState} = this.props;
     switch (tabState.status) {
-      case status.SUCCESS:
+      case SUCCESS:
         return (<footer>只显示2条内容...</footer>);
-      case status.FAILURE:
+      case FAILURE:
         return (<footer>加载失败！</footer>);
       default:
         return (<footer>loading...</footer>);

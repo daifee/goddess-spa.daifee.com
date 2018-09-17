@@ -44,8 +44,12 @@ function createModel(type) {
         try {
           const blogList = await servicesMicroBlog.getRecommended(type);
           this.set(blogList);
+
+          return blogList;
         } catch (error) {
           this.setFailure(error);
+
+          return error;
         }
       }
     }

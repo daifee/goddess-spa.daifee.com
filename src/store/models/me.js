@@ -1,9 +1,10 @@
-// import * as globalStore from '../index';
 
+import {INIT, PENDING, SUCCESS, FAILURE} from '../../utils/status';
+import * as serviceUser from '../../services/user';
 
 const INIT_STATE = {
   data: null,
-  status: '', // pending, failure, success
+  status: INIT,
   message: ''
 };
 
@@ -11,20 +12,20 @@ export default {
   state: INIT_STATE,
 
   reducers: {
-    setPending(state, message = 'pending') {
-      return {...state, message, status: 'pending'};
+    setPending(state, message = 'loading...') {
+      return {...state, message, status: PENDING};
     },
 
-    setFailure(state, message = 'failure') {
-      return {...state, message, status: 'failure'};
+    setFailure(state, message = '失败') {
+      return {...state, message, status: FAILURE};
     },
 
     setData(state, user) {
       return {
         ...state,
         data: user,
-        status: 'success',
-        message: 'success'
+        status: SUCCESS,
+        message: '成功登录'
       };
     },
 
@@ -34,12 +35,18 @@ export default {
   },
 
   effects: {
-    authorize(payload, rootState) {
-      // todo
+    async authorize(user, rootState) {
       this.setPending();
-      // request
-      // setData
-      // setFailure
+      try {
+        user = await serviceUser.authorize(user);
+        this.setData(user);
+
+        return user;
+      } catch (error) {
+        this.setFailure(error);
+
+        return error;
+      }
     }
   }
 };

@@ -11,7 +11,7 @@ export async function authorize(user) {
 // 注册用户
 export async function register(user) {
   const api = '/api/v1/users/';
-  return await goddess.post(url, user);
+  return await goddess.post(api, user);
 }
 
 // 获取 cos 临时key
