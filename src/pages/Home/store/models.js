@@ -1,9 +1,10 @@
 
 import * as servicesMicroBlog from '../../../services/microBlog';
+import * as status from '../../../utils/status';
 
 const INIT_STATE = {
   data: [],
-  status: '', // pending, success, failure
+  status: status.INIT,
   message: '', // string | Error
 };
 
@@ -18,7 +19,7 @@ function createModel(type) {
         return {
           ...state,
           data: blogList,
-          status: 'success',
+          status: status.SUCCESS,
           message: '成功'
         };
       },
@@ -26,14 +27,14 @@ function createModel(type) {
         return {
           ...state,
           message,
-          status: 'pending'
+          status: status.PENDING
         };
       },
       setFailure(state, error) {
         return {
           ...state,
           message: error,
-          status: 'failure'
+          status: status.FAILURE
         };
       }
     },

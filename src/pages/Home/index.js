@@ -6,6 +6,7 @@ import utilUrl from 'url';
 import {getState, dispatch} from './store';
 import Page from '../../components/Page';
 import BlogList from '../../components/BlogList';
+import * as status from '../../utils/status';
 import './styles.css';
 
 
@@ -47,7 +48,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const {type, tabState} = this.props;
+    const {type} = this.props;
     let page;
     TABS.forEach((item, index) => {
       if (item.type === type) page = index;
@@ -80,8 +81,6 @@ class Home extends React.Component {
       <div className='content'>
         <BlogList
           blogList={tabState.data}
-          status={tabState.status}
-          message={tabState.message}
           renderFooter={this.renderFooter}
         />
       </div>
@@ -89,13 +88,14 @@ class Home extends React.Component {
   }
 
   renderFooter = () => {
-    const {status} = this.props.tabState;
-    if (status === 'success') {
-      return (<footer>只显示2条内容...</footer>);
-    } else if (status === 'failure') {
-      return (<footer>加载失败！</footer>);
-    } else {
-      return (<footer>loading...</footer>);
+    const {tabState} = this.props;
+    switch (tabState.status) {
+      case status.SUCCESS:
+        return (<footer>只显示2条内容...</footer>);
+      case status.FAILURE:
+        return (<footer>加载失败！</footer>);
+      default:
+        return (<footer>loading...</footer>);
     }
   }
 }
