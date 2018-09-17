@@ -63,6 +63,7 @@ class Home extends React.Component {
           daifee.com
         </NavBar>
         <Tabs
+          animated={false}
           tabs={TABS}
           page={page}
           onTabClick={this.handleTabClick}
@@ -88,7 +89,7 @@ class Home extends React.Component {
   }
 
   renderFooter = () => {
-    const {status} = this.props;
+    const {status} = this.props.tabState;
     if (status === 'success') {
       return (<footer>只显示2条内容...</footer>);
     } else if (status === 'failure') {
