@@ -57,7 +57,7 @@ class Home extends React.Component {
       <Page id='home'>
         <NavBar
           mode='light'
-          leftContent='主页'
+          leftContent='我'
           rightContent='编辑'
         >
           daifee.com
