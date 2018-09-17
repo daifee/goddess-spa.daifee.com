@@ -17,13 +17,15 @@ import {
   scopeDispatch
 } from './scope';
 import {scopeModels as homeModels} from '../pages/Home/store';
+import {scopeModels as loginModels} from '../pages/Login/store';
 
 
 const store = init({
   name: 'store',
   models: {
     ...globalModels,
-    ...homeModels
+    ...homeModels,
+    ...loginModels
   }
 });
 

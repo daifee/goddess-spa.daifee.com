@@ -1,12 +1,44 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import {Button, List, InputItem, WingBlank, WhiteSpace} from 'antd-mobile';
 import {SubPage} from '../../components/Page';
-import './styles.css';
+import {getState, dispatch} from './store';
+import {
+  dispatch as globalDispatch,
+  getState as getGlobalState
+} from '../../store';
 
-export default class Login extends React.Component {
+import './styles.css';
+import { PENDING } from '../../utils/status';
+import * as utilUser from '../../utils/user';
+
+
+class Login extends React.Component {
+
+  handleInputPhone = (value) => {
+    dispatch('user/setPhone', value);
+  };
+
+  handleInputPassword = (value) => {
+    dispatch('user/setPassword', value);
+  };
+
+  handleSubmit = () => {
+    const {phone, password} = this.props;
+    if (!utilUser.isPhone(phone)) {
+      alert('手机号码格式错误');
+    } else if (!utilUser.isPassword(password)) {
+      alert('密码格式错误');
+    } else {
+      alert('submit');
+    }
+
+  };
 
   render() {
+    const {password, phone, me} = this.props;
+
     return (
       <SubPage id='login' navBar={{children: '登录'}}>
         <h1 className='title'>daifee.com</h1>
@@ -15,6 +47,8 @@ export default class Login extends React.Component {
             type='phone'
             labelNumber={3}
             placeholder='请输入手机号码'
+            value={phone}
+            onChange={this.handleInputPhone}
           >
             帐号
           </InputItem>
@@ -22,6 +56,8 @@ export default class Login extends React.Component {
             type='password'
             labelNumber={3}
             placeholder='请输入密码'
+            value={password}
+            onChange={this.handleInputPassword}
           >
             密码
           </InputItem>
@@ -30,7 +66,14 @@ export default class Login extends React.Component {
           <WhiteSpace />
           <WhiteSpace />
           <WhiteSpace />
-          <Button type='primary'>登录</Button>
+          <Button
+            type='primary'
+            disabled={utilUser.isPhone(phone) && utilUser.isPassword(password)}
+            loading={me.status === PENDING}
+            onClick={this.handleSubmit}
+          >
+            登录
+          </Button>
           <WhiteSpace />
           <p className='register'>
             <Link to='/register'>免费注册</Link>
@@ -40,3 +83,15 @@ export default class Login extends React.Component {
     );
   }
 }
+
+export default connect((rootState, props) => {
+  const state = getState(rootState);
+  const globalState = getGlobalState(rootState);
+  const user = state.user;
+  return {
+    phone: user.phone,
+    password: user.password,
+    me: globalState.me,
+    ...props
+  };
+})(Login);
