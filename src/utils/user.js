@@ -1,9 +1,10 @@
 
 
-export function isPhone() {
-  return true;
+export function isPhone(value) {
+  return /1[0-9]{10}/.test(value);
 }
 
-export function isPassword() {
-  return true;
+export function isPassword(value) {
+  const len = value.length;
+  return len < 60 || len > 6;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {Button, List, InputItem, WingBlank, WhiteSpace} from 'antd-mobile';
+import {Button, List, InputItem, WingBlank, WhiteSpace, Toast} from 'antd-mobile';
 import {SubPage} from '../../components/Page';
 import {getState, dispatch} from './store';
 import {
@@ -25,16 +25,19 @@ class Login extends React.Component {
   };
 
   handleSubmit = async () => {
-    let {phone, password} = this.props;
+    let {phone, password, history} = this.props;
     phone = phone.replace(/ /g, '');
     if (!utilUser.isPhone(phone)) {
-      alert('手机号码格式错误');
+      Toast.fail('手机号码格式错误');
     } else if (!utilUser.isPassword(password)) {
-      alert('密码格式错误');
+      Toast.fail('密码格式错误');
     } else {
-      const error = await globalDispatch('me/authorize', {phone, password});
-      if (error instanceof Error) {
-        console.log(error.message);
+      const user = await globalDispatch('me/authorize', {phone, password});
+      if (user instanceof Error) {
+        Toast.fail(user.message);
+      } else {
+        Toast.success(`欢迎，${user.name}`);
+        history.replace(`/users/${user.id}`);
       }
     }
   };
@@ -49,7 +52,7 @@ class Login extends React.Component {
           <InputItem
             type='phone'
             labelNumber={3}
-            placeholder='请输入手机号码'
+            placeholder='11位数字'
             value={phone}
             onChange={this.handleInputPhone}
           >
@@ -58,7 +61,7 @@ class Login extends React.Component {
           <InputItem
             type='password'
             labelNumber={3}
-            placeholder='请输入密码'
+            placeholder='6~60位字符'
             value={password}
             onChange={this.handleInputPassword}
           >

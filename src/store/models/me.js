@@ -1,6 +1,9 @@
 
 import {INIT, PENDING, SUCCESS, FAILURE} from '../../utils/status';
 import * as serviceUser from '../../services/user';
+import * as utilAsyncStorage from '../../utils/asyncStorage';
+
+const PERSISTENCE_KEY = 'persistence_me';
 
 const INIT_STATE = {
   data: null,
@@ -31,6 +34,10 @@ export default {
 
     logout(state) {
       return {...INIT_STATE};
+    },
+
+    reset() {
+      return {...INIT_STATE};
     }
   },
 
@@ -39,6 +46,8 @@ export default {
       this.setPending();
       try {
         user = await serviceUser.authorize(user);
+        await utilAsyncStorage.setItem(PERSISTENCE_KEY, user);
+
         this.setData(user);
 
         return user;
@@ -47,6 +56,23 @@ export default {
 
         return error;
       }
+    },
+
+    async reauthorize() {
+      this.setPending();
+      const user = await utilAsyncStorage.getItem(PERSISTENCE_KEY);
+
+      if (user) {
+        this.setData(user);
+      } else {
+        this.setFailure(new Error('未登录'));
+      }
+      return user;
+    },
+
+    async deauthorize() {
+      await utilAsyncStorage.remoteItem(PERSISTENCE_KEY);
+      this.reset();
     }
   }
 };
