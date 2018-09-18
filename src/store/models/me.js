@@ -59,7 +59,7 @@ export default {
     },
 
     async reauthorize() {
-      this.setPending();
+      this.setPending('reauthorize');
       const user = await utilAsyncStorage.getItem(PERSISTENCE_KEY);
 
       if (user) {
