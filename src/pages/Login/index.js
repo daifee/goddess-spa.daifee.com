@@ -24,16 +24,19 @@ class Login extends React.Component {
     dispatch('user/setPassword', value);
   };
 
-  handleSubmit = () => {
-    const {phone, password} = this.props;
+  handleSubmit = async () => {
+    let {phone, password} = this.props;
+    phone = phone.replace(/ /g, '');
     if (!utilUser.isPhone(phone)) {
       alert('手机号码格式错误');
     } else if (!utilUser.isPassword(password)) {
       alert('密码格式错误');
     } else {
-      alert('submit');
+      const error = await globalDispatch('me/authorize', {phone, password});
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
     }
-
   };
 
   render() {
@@ -68,7 +71,7 @@ class Login extends React.Component {
           <WhiteSpace />
           <Button
             type='primary'
-            disabled={utilUser.isPhone(phone) && utilUser.isPassword(password)}
+            disabled={!phone || !password}
             loading={me.status === PENDING}
             onClick={this.handleSubmit}
           >
