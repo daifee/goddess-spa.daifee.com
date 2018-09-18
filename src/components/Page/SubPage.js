@@ -9,8 +9,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {NavBar} from 'antd-mobile';
 import classNames from 'classnames';
+import {withRouter} from 'react-router-dom';
 
-export default class SubPage extends React.Component {
+class SubPage extends React.Component {
   static propTypes = {
     navBar: PropTypes.shape({
       ...NavBar.propTypes
@@ -24,7 +25,7 @@ export default class SubPage extends React.Component {
   };
 
   render() {
-    const {children, navBar, className, ...rest} = this.props;
+    const {children, navBar, className, staticContext, ...rest} = this.props;
     const cls = classNames('components-page components-sub-page', className)
 
     return (
@@ -51,10 +52,19 @@ export default class SubPage extends React.Component {
   }
 
   handleBack = () => {
-    console.log('TODO back');
+    const {history} = this.props;
+    if (history.length > 1) {
+      history.goBack();
+    } else {
+      history.replace('/');
+    }
   };
 
   handleHome = () => {
-    console.log('TODO back to home');
+    const {history} = this.props;
+    history.replace('/');
   };
 }
+
+
+export default withRouter(SubPage);
