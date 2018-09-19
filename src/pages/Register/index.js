@@ -1,12 +1,58 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Button, List, InputItem, WingBlank, WhiteSpace} from 'antd-mobile';
+import {Button, List, InputItem, WingBlank, WhiteSpace, Toast} from 'antd-mobile';
+import {connect} from 'react-redux';
 import {SubPage} from '../../components/Page';
-import './styles.css';
+import {getState, dispatch} from './store';
+import {
+  dispatch as globalDispatch,
+  getState as getGlobalState
+} from '../../store';
 
-export default class Register extends React.Component {
+import './styles.css';
+import { PENDING } from '../../utils/status';
+import * as utilUser from '../../utils/user';
+
+
+class Register extends React.Component {
+  handleInputPhone = (value) => {
+    dispatch('user/setPhone', value);
+  };
+
+  handleInputName = (value) => {
+    dispatch('user/setName', value);
+  };
+
+  handleInputPassword = (value) => {
+    dispatch('user/setPassword', value);
+  };
+
+  handleInputRepeatPassword = (value) => {
+    dispatch('user/setRepeatPassword', value);
+  };
+
+  handleSubmit = async () => {
+    let {phone, name, repeatPassword, password, history} = this.props;
+    phone = phone.replace(/ /g, '');
+
+    if (!utilUser.isPhone(phone)) {
+      Toast.fail('手机号码格式错误');
+    } else if (!utilUser.isPassword(password)) {
+      Toast.fail('密码格式错误');
+    } else {
+      const user = await globalDispatch('me/register', {phone, name, password, repeatPassword});
+      if (user instanceof Error) {
+        Toast.fail(user.message);
+      } else {
+        Toast.success(`欢迎，${user.name}`);
+        history.replace(`/users/${user.id}`);
+      }
+    }
+  };
 
   render() {
+    const {phone, name, password, repeatPassword, me} = this.props;
+
     return (
       <SubPage id='register' navBar={{children: '注册'}}>
         <h1 className='title'>daifee.com</h1>
@@ -14,28 +60,36 @@ export default class Register extends React.Component {
           <InputItem
             type='phone'
             labelNumber={5}
-            placeholder='请输入手机号码'
+            placeholder='11位数字'
+            value={phone}
+            onChange={this.handleInputPhone}
           >
             手机号
           </InputItem>
           <InputItem
             type='text'
             labelNumber={5}
-            placeholder='请输昵称'
+            placeholder='不能超过40个字符'
+            value={name}
+            onChange={this.handleInputName}
           >
             昵称
           </InputItem>
           <InputItem
             type='password'
             labelNumber={5}
-            placeholder='请输入密码'
+            placeholder='6~60位字符'
+            value={password}
+            onChange={this.handleInputPassword}
           >
             密码
           </InputItem>
           <InputItem
             type='password'
             labelNumber={5}
-            placeholder='请输入密码'
+            placeholder='6~60位字符'
+            value={repeatPassword}
+            onChange={this.handleInputRepeatPassword}
           >
             确认密码
           </InputItem>
@@ -44,7 +98,14 @@ export default class Register extends React.Component {
           <WhiteSpace />
           <WhiteSpace />
           <WhiteSpace />
-          <Button type='primary'>注册</Button>
+          <Button
+            type='primary'
+            disabled
+            loading={me.status === PENDING}
+            onClick={this.handleSubmit}
+          >
+            注册
+          </Button>
           <WhiteSpace />
           <p className='login'>
             <Link to='/login'>登录</Link>
@@ -54,3 +115,15 @@ export default class Register extends React.Component {
     );
   }
 }
+
+export default connect((rootState, props) => {
+  const state = getState(rootState);
+  const globalState = getGlobalState(rootState);
+  const user = state.user;
+
+  return {
+    me: globalState.me,
+    ...user,
+    ...props
+  };
+})(Register);

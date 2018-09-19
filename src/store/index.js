@@ -18,6 +18,7 @@ import {
 } from './scope';
 import {scopeModels as homeModels} from '../pages/Home/store';
 import {scopeModels as loginModels} from '../pages/Login/store';
+import {scopeModels as registerModels} from '../pages/Register/store';
 
 
 const store = init({
@@ -25,7 +26,8 @@ const store = init({
   models: {
     ...globalModels,
     ...homeModels,
-    ...loginModels
+    ...loginModels,
+    ...registerModels
   }
 });
 

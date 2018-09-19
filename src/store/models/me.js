@@ -42,7 +42,7 @@ export default {
   },
 
   effects: {
-    async authorize(user, rootState) {
+    async authorize(user) {
       this.setPending();
       try {
         user = await serviceUser.authorize(user);
@@ -73,6 +73,22 @@ export default {
     async deauthorize() {
       await utilAsyncStorage.remoteItem(PERSISTENCE_KEY);
       this.reset();
+    },
+
+    async register(user) {
+      this.setPending();
+      try {
+        user = await serviceUser.register(user);
+        await utilAsyncStorage.setItem(PERSISTENCE_KEY, user);
+
+        this.setData(user);
+
+        return user;
+      } catch (error) {
+        this.setFailure(error);
+
+        return error;
+      }
     }
   }
 };
