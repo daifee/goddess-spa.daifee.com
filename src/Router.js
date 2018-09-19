@@ -3,12 +3,15 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {TouristRoute} from './components/Route';
 import {connect} from 'react-redux';
 import {ActivityIndicator} from 'antd-mobile';
+
+import {getState, dispatch} from './store';
+import { INIT, PENDING } from './utils/status';
+
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
-import {getState, dispatch} from './store';
-import { INIT, PENDING } from './utils/status';
+import Profile from './pages/Profile';
 
 
 
@@ -35,6 +38,7 @@ class Router extends React.Component {
           <Route exact path='/' component={Home} />
           <TouristRoute user={user} exact path='/login' component={Login} />
           <TouristRoute user={user} exact path='/register' component={Register} />
+          <TouristRoute exact path='/users/:id' component={Profile} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
