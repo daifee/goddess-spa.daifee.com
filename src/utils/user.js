@@ -8,3 +8,8 @@ export function isPassword(value) {
   const len = value.length;
   return len < 60 || len > 6;
 }
+
+export function isName(value) {
+  const len = value.length;
+  return len > 0 && len < 40;
+}

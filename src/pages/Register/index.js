@@ -16,19 +16,19 @@ import * as utilUser from '../../utils/user';
 
 class Register extends React.Component {
   handleInputPhone = (value) => {
-    dispatch('user/setPhone', value);
+    dispatch('user/setPhone', value.trim());
   };
 
   handleInputName = (value) => {
-    dispatch('user/setName', value);
+    dispatch('user/setName', value.trim());
   };
 
   handleInputPassword = (value) => {
-    dispatch('user/setPassword', value);
+    dispatch('user/setPassword', value.trim());
   };
 
   handleInputRepeatPassword = (value) => {
-    dispatch('user/setRepeatPassword', value);
+    dispatch('user/setRepeatPassword', value.trim());
   };
 
   handleSubmit = async () => {
@@ -37,8 +37,12 @@ class Register extends React.Component {
 
     if (!utilUser.isPhone(phone)) {
       Toast.fail('手机号码格式错误');
+    } else if (!utilUser.isName(name)) {
+      Toast.fail('昵称格式错误');
     } else if (!utilUser.isPassword(password)) {
       Toast.fail('密码格式错误');
+    } else if (password !== repeatPassword) {
+      Toast.fail('密码不一致');
     } else {
       const user = await globalDispatch('me/register', {phone, name, password, repeatPassword});
       if (user instanceof Error) {
@@ -52,6 +56,7 @@ class Register extends React.Component {
 
   render() {
     const {phone, name, password, repeatPassword, me} = this.props;
+    const disabled = !(phone && name && password && repeatPassword);
 
     return (
       <SubPage id='register' navBar={{children: '注册'}}>
@@ -100,7 +105,7 @@ class Register extends React.Component {
           <WhiteSpace />
           <Button
             type='primary'
-            disabled
+            disabled={disabled}
             loading={me.status === PENDING}
             onClick={this.handleSubmit}
           >
