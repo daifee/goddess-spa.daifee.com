@@ -3,7 +3,7 @@ import React from 'react';
 import {ListView} from 'antd-mobile';
 import BlogItem from './BlogItem';
 import classNames from 'classnames';
-
+import Status from './Status';
 
 export default class BlogList extends React.Component {
 
@@ -36,6 +36,8 @@ export default class BlogList extends React.Component {
   }
 
   renderFooter = () => {
-    return 'loading...';
+    const {status} = this.props;
+
+    return (<Status status={status} />);
   }
 }

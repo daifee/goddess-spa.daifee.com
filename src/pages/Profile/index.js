@@ -15,8 +15,8 @@ import {connect} from 'react-redux';
 import dayjs from 'dayjs';
 import {SubPage} from '../../components/Page';
 import {getState as getGlobalState} from '../../store';
+import BlogList from '../../components/BlogList';
 
-// import {} from 'antd-mobile';
 
 import './styles.css';
 
@@ -67,6 +67,12 @@ class Profile extends React.Component {
             </div>
           </div>
         </header>
+
+        <main>
+          <BlogList
+            blogList={[]}
+          />
+        </main>
       </SubPage>
     );
   }
