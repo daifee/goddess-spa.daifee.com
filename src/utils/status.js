@@ -11,3 +11,9 @@ export const CANCEL = 'CANCEL';
 export function isLoading(status) {
   return status === INIT || status === PENDING;
 }
+
+export const ASYNC_STATE = {
+  data: null,
+  status: INIT,
+  message: '', // string | Error
+};

@@ -1,25 +1,23 @@
 
 import * as servicesMicroBlog from '../../../services/microBlog';
-import * as status from '../../../utils/status';
+import {SUCCESS, FAILURE, PENDING, ASYNC_STATE} from '../../../utils/status';
 
-const INIT_STATE = {
-  data: [],
-  status: status.INIT,
-  message: '', // string | Error
-};
 
 
 
 function createModel(type) {
   return {
-    state: INIT_STATE,
+    state: {
+      ...ASYNC_STATE,
+      data: []
+    },
 
     reducers: {
       set(state, blogList) {
         return {
           ...state,
           data: blogList,
-          status: status.SUCCESS,
+          status: SUCCESS,
           message: '成功'
         };
       },
@@ -27,14 +25,14 @@ function createModel(type) {
         return {
           ...state,
           message,
-          status: status.PENDING
+          status: PENDING
         };
       },
       setFailure(state, error) {
         return {
           ...state,
           message: error,
-          status: status.FAILURE
+          status: FAILURE
         };
       }
     },

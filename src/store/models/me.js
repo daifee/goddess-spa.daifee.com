@@ -1,14 +1,12 @@
 
-import {INIT, PENDING, SUCCESS, FAILURE} from '../../utils/status';
+import {INIT, PENDING, SUCCESS, FAILURE, ASYNC_STATE} from '../../utils/status';
 import * as serviceUser from '../../services/user';
 import * as utilAsyncStorage from '../../utils/asyncStorage';
 
 const PERSISTENCE_KEY = 'persistence_me';
 
 const INIT_STATE = {
-  data: null,
-  status: INIT,
-  message: ''
+  ...ASYNC_STATE
 };
 
 export default {
