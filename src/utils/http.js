@@ -2,6 +2,7 @@
  * http请求实例
  */
 import axios from 'axios';
+import store, {getState as getGlobalState} from '../store';
 
 function createHttpError(code, message, stackId) {
   const error = new Error(message);
@@ -22,6 +23,20 @@ export const goddess = axios.create({
 });
 
 goddess.interceptors.request.use((config) => {
+  const rootState = store.getState();
+  const state = getGlobalState(rootState);
+  const user = state.me.data;
+
+  if (user) {
+    config = {
+      ...config,
+      headers: {
+        ...config.headers,
+        Authorization: `Bearer ${user.token}`
+      }
+    };
+  }
+
   // authorization
   return config;
 });

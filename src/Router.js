@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {TouristRoute} from './components/Route';
+import {TouristRoute, UserRoute} from './components/Route';
 import {connect} from 'react-redux';
 import {ActivityIndicator} from 'antd-mobile';
 
@@ -36,9 +36,9 @@ class Router extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route exact path='/' component={Home} />
-          <TouristRoute user={user} exact path='/login' component={Login} />
-          <TouristRoute user={user} exact path='/register' component={Register} />
-          <TouristRoute exact path='/users/:id' component={Profile} />
+          <TouristRoute exact path='/login' component={Login}  user={user} />
+          <TouristRoute exact path='/register' component={Register} user={user} />
+          <UserRoute exact path='/users/:id' component={Profile} user={user} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>

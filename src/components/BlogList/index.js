@@ -4,14 +4,12 @@ import {ListView} from 'antd-mobile';
 import BlogList from './BlogList';
 
 import './styles.css';
-import { INIT, PENDING, SUCCESS, FAILURE } from '../../utils/status';
 
 
 
 export default class BlogListContainer extends BlogList {
   static propTypes = {
-    blogList: PropTypes.array.isRequired,
-    status: PropTypes.oneOf([INIT, PENDING, SUCCESS, FAILURE])
+    blogList: PropTypes.array.isRequired
   };
 
   constructor(props) {
