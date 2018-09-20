@@ -9,7 +9,9 @@ export const END = 'END';
 export const FAILURE = 'FAILURE';
 export const CANCEL = 'CANCEL';
 
-
+export function shouldBlock(status) {
+  return isLoading(status) || status === END;
+}
 
 export function isLoading(status) {
   return status === INIT || status === PENDING;

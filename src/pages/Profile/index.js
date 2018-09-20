@@ -20,6 +20,7 @@ import BlogList from '../../components/BlogList';
 import {dispatch, getState} from './store';
 
 import './styles.css';
+import { SUCCESS, shouldBlock } from '../../utils/status';
 
 
 class Profile extends React.Component {
@@ -38,8 +39,31 @@ class Profile extends React.Component {
     history.push(`/settings`);
   };
 
+  handleEndReached = () => {
+    const {page, status, user} = this.props;
+
+    if (shouldBlock(status)) {
+      return;
+    }
+
+    if (status === SUCCESS) {
+      dispatch('blogList/get', {userId: user.id, page: (page + 1)});
+    } else {
+      dispatch('blogList/get', {userId: user.id, page: page});
+    }
+
+    console.log(page, status);
+  };
+
   componentDidMount() {
-    const {user} = this.props;
+    this.initData();
+  }
+
+  initData() {
+    const {user, page} = this.props;
+    // 不是第一页，肯定是“返回”
+    if (page !== 1) return;
+
     dispatch('blogList/get', {userId: user.id});
   }
 
@@ -78,6 +102,7 @@ class Profile extends React.Component {
           <BlogList
             blogList={blogList}
             status={status}
+            onEndReached={this.handleEndReached}
           />
         </main>
       </SubPage>
@@ -93,6 +118,7 @@ export default connect((rootState, props) => {
     user: globalState.me.data,
     status: blogList.status,
     blogList: blogList.data,
+    page: blogList.page,
     ...props
   };
 })(Profile);

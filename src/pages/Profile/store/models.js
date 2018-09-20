@@ -6,7 +6,9 @@ import * as serviceBlog from '../../../services/microBlog';
 export const blogList = {
   state: {
     ...ASYNC_STATE,
-    data: []
+    data: [],
+    page: 1, // 当前页码
+    perPage: 10
   },
 
   reducers: {
@@ -18,25 +20,17 @@ export const blogList = {
       return {...state, message, status: FAILURE};
     },
 
-    addData(state, blogList = []) {
+    addData(state, {blogList, page, perPage}) {
       const data = state.data.concat(blogList);
       return {
         ...state,
-        data: data,
-        status: SUCCESS,
+        data,
+        page,
+        perPage,
+        status: blogList.length < perPage ? END : SUCCESS,
         message: '加载成功'
       };
     },
-
-    addLastData(state, blogList = []) {
-      const data = state.data.concat(blogList);
-      return {
-        ...state,
-        data: data,
-        status: END,
-        message: '加载成功'
-      };
-    }
   },
 
   effects: {
@@ -47,22 +41,13 @@ export const blogList = {
      * @property {number} [params.page] 页码
      * @property {number} [params.perPage] 每页数量
      */
-    async get(params = {}) {
-      let {userId, page, perPage} = params;
-      if (!perPage) {
-        perPage = 10;
-      }
-
+    async get({userId, page = 1, perPage = 5}) {
       this.setPending();
       try {
         const blogList = await serviceBlog
           .getListByUserId(userId, page, perPage);
 
-        if (blogList.length < perPage) {
-          this.addLastData(blogList);
-        } else {
-          this.addData(blogList);
-        }
+        this.addData({blogList, page, perPage});
 
         return blogList;
       } catch (error) {
