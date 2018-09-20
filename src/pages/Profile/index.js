@@ -17,6 +17,7 @@ import {SubPage} from '../../components/Page';
 import {getState as getGlobalState} from '../../store';
 import BlogList from '../../components/BlogList';
 
+import {dispatch, getState} from './store';
 
 import './styles.css';
 
@@ -37,8 +38,13 @@ class Profile extends React.Component {
     history.push(`/settings`);
   };
 
-  render() {
+  componentDidMount() {
     const {user} = this.props;
+    dispatch('blogList/get', {userId: user.id});
+  }
+
+  render() {
+    const {user, status, blogList} = this.props;
 
     return (
       <SubPage id='profile' navBar={{children: user.name}}>
@@ -70,7 +76,8 @@ class Profile extends React.Component {
 
         <main>
           <BlogList
-            blogList={[]}
+            blogList={blogList}
+            status={status}
           />
         </main>
       </SubPage>
@@ -80,9 +87,12 @@ class Profile extends React.Component {
 
 export default connect((rootState, props) => {
   const globalState = getGlobalState(rootState);
+  const {blogList} = getState(rootState);
 
   return {
     user: globalState.me.data,
+    status: blogList.status,
+    blogList: blogList.data,
     ...props
   };
 })(Profile);

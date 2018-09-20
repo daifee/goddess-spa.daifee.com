@@ -1,5 +1,5 @@
 
-import {INIT, PENDING, SUCCESS, FAILURE, ASYNC_STATE} from '../../utils/status';
+import {PENDING, SUCCESS, FAILURE, ASYNC_STATE} from '../../utils/status';
 import * as serviceUser from '../../services/user';
 import * as utilAsyncStorage from '../../utils/asyncStorage';
 

@@ -5,7 +5,7 @@ import createScopeGetState from '../../../store/createScopeGetState';
 import * as models from './models';
 
 
-const SCOPE = 'LOGIN';
+const SCOPE = 'PROFILE';
 
 export const scopeModels = createScopeModels(models, SCOPE);
 export const dispatch = createScopeDispatch(SCOPE);

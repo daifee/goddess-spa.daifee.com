@@ -1,3 +1,6 @@
+/**
+ * 定义“异步状态”和“异步`state`结构”
+ */
 
 export const INIT = 'INIT';
 export const PENDING = 'PENDING';
@@ -13,7 +16,7 @@ export function isLoading(status) {
 }
 
 export const ASYNC_STATE = {
-  data: null,
-  status: INIT,
+  data: null, // 默认值
+  status: INIT, // 统一定义异步初始状态
   message: '', // string | Error
 };
