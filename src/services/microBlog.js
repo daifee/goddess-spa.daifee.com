@@ -8,9 +8,9 @@ export async function post(userId, blog) {
 }
 
 // 获取用户博客列表
-export async function getListByUserId(userId, page = 1, perPage = 10) {
+export async function getListByUserId(userId, query) {
   const api = `/v1/users/${userId}/micro-blogs/`;
-  return await goddess.get(api, {params: {page, perPage}});
+  return await goddess.get(api, {params: query});
 }
 
 // 删除博客

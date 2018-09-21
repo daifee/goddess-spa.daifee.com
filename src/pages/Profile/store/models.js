@@ -45,7 +45,7 @@ export const blogList = {
       this.setPending();
       try {
         const blogList = await serviceBlog
-          .getListByUserId(userId, page, perPage);
+          .getListByUserId(userId, {page, perPage});
 
         this.addData({blogList, page, perPage});
 
