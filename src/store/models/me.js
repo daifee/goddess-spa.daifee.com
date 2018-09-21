@@ -30,12 +30,8 @@ export default {
       };
     },
 
-    logout(state) {
-      return {...INIT_STATE};
-    },
-
-    reset() {
-      return {...INIT_STATE};
+    remoteData(state) {
+      return {...state, data: null, message: 'deauthorize'};
     }
   },
 
@@ -70,7 +66,7 @@ export default {
 
     async deauthorize() {
       await utilAsyncStorage.remoteItem(PERSISTENCE_KEY);
-      this.reset();
+      this.remoteData();
     },
 
     async register(user) {

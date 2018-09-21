@@ -12,7 +12,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
-
+import Settings from './pages/Settings';
 
 
 
@@ -36,6 +36,7 @@ class Router extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route exact path='/' component={Home} />
+          <UserRoute exact path='/settings' component={Settings} user={user} />
           <TouristRoute exact path='/login' component={Login}  user={user} />
           <TouristRoute exact path='/register' component={Register} user={user} />
           <UserRoute exact path='/users/:id' component={Profile} user={user} />
