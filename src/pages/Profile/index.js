@@ -51,8 +51,6 @@ class Profile extends React.Component {
     } else {
       dispatch('blogList/get', {userId: user.id, page: page});
     }
-
-    console.log(page, status);
   };
 
   componentDidMount() {
