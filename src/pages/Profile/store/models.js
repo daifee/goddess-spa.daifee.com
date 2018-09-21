@@ -21,7 +21,7 @@ export const blogList = {
     },
 
     addData(state, {blogList, page, perPage}) {
-      const data = state.data.concat(blogList);
+      const data = page > 1 ?state.data.concat(blogList) : blogList;
       return {
         ...state,
         data,

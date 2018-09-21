@@ -44,7 +44,12 @@ class SubPage extends React.Component {
         leftContent='返回'
         onLeftClick={this.handleBack}
         rightContent={(
-          <span onClick={this.handleHome}>首页</span>
+          <div
+            className='right-btn'
+            onClick={this.handleHome}
+          >
+            <span>首页</span>
+          </div>
         )}
         {...rest}
       >{children}</NavBar>

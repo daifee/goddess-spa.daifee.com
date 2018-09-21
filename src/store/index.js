@@ -16,6 +16,7 @@ import {
   getScopeState,
   scopeDispatch
 } from './scope';
+import * as selector from './selector';
 import {scopeModels as homeModels} from '../pages/Home/store';
 import {scopeModels as loginModels} from '../pages/Login/store';
 import {scopeModels as registerModels} from '../pages/Register/store';
@@ -37,6 +38,7 @@ setStore(store);
 export default store;
 
 export {
+  selector,
   getScopeState as getState,
   scopeDispatch as dispatch
 };

@@ -4,6 +4,9 @@ import {NavBar, Tabs} from 'antd-mobile';
 import {connect} from 'react-redux';
 import utilUrl from 'url';
 import {getState, dispatch} from './store';
+import {
+  selector as globalStateSelector
+} from '../../store';
 import Page from '../../components/Page';
 import BlogList from '../../components/BlogList';
 import {FAILURE, SUCCESS} from '../../utils/status';
@@ -24,12 +27,31 @@ function getType(url) {
 class Home extends React.Component {
   unlisten = null;
 
+  handleLeftClick = () => {
+    const {user, history} = this.props;
+    if (user) {
+      history.push(`/users/${user.id}`);
+    } else {
+      history.push('/login');
+    }
+  };
+
+  handleRightClick = () => {
+    const {history} = this.props;
+
+    history.push('/blogs/edit');
+  };
+
+  handleTabClick = (tabData) => {
+    const {history} = this.props;
+
+    history.replace(`?type=${tabData.type}`);
+  };
+
   componentDidMount() {
     const {history, type} = this.props;
 
-    dispatch(`${type}/get`).then((value) => {
-      console.log(value);
-    });
+    dispatch(`${type}/get`);
 
     this.unlisten = history.listen((newLocation) => {
       if (newLocation.pathname !== '/') return;
@@ -41,12 +63,6 @@ class Home extends React.Component {
 
   componentWillUnmount() {
     this.unlisten();
-  }
-
-  handleTabClick = (tabData) => {
-    const {history} = this.props;
-
-    history.replace(`?type=${tabData.type}`);
   }
 
   render() {
@@ -61,7 +77,15 @@ class Home extends React.Component {
         <NavBar
           mode='light'
           leftContent='我'
-          rightContent='编辑'
+          onLeftClick={this.handleLeftClick}
+          rightContent={(
+            <div
+              className='right-btn'
+              onClick={this.handleRightClick}
+            >
+              <span>发布</span>
+            </div>
+          )}
         >
           daifee.com
         </NavBar>
@@ -106,11 +130,13 @@ export default connect((rootState, props) => {
   const state = getState(rootState);
   const type = getType(window.location.href);
   const tabState = state[type];
+  const user = globalStateSelector.user(rootState);
 
   return {
     ...state,
     ...props,
     type,
     tabState,
+    user
   };
 })(Home);
