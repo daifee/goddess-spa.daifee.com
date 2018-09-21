@@ -13,7 +13,7 @@ import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
-
+import UserBlogList from './pages/UserBlogList';
 
 
 /**
@@ -40,6 +40,7 @@ class Router extends React.Component {
           <TouristRoute exact path='/login' component={Login}  user={user} />
           <TouristRoute exact path='/register' component={Register} user={user} />
           <UserRoute exact path='/users/:id' component={Profile} user={user} />
+          <UserRoute exact path='/users/:id/blogs' component={UserBlogList} user={user} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
