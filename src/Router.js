@@ -14,7 +14,7 @@ import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import UserBlogList from './pages/UserBlogList';
-
+import UserLikes from './pages/UserLikes';
 
 /**
  * 初始化登录后再注册路由
@@ -40,7 +40,8 @@ class Router extends React.Component {
           <TouristRoute exact path='/login' component={Login}  user={user} />
           <TouristRoute exact path='/register' component={Register} user={user} />
           <UserRoute exact path='/users/:id' component={Profile} user={user} />
-          <UserRoute exact path='/users/:id/blogs' component={UserBlogList} user={user} />
+          <UserRoute exact path='/users/:id/blogs/' component={UserBlogList} user={user} />
+          <UserRoute exact path='/users/:id/likes/' component={UserLikes} user={user} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>

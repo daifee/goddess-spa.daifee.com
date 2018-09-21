@@ -44,7 +44,7 @@ class UserBlogList extends React.Component {
     const {status, blogList} = this.props;
 
     return (
-      <SubPage id='recommend-blog-list' navBar={{children: '被推荐的微博'}}>
+      <SubPage id='user-blog-list' navBar={{children: '被推荐的微博'}}>
         <WhiteSpace />
         <BlogList
           blogList={blogList}

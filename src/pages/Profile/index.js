@@ -24,17 +24,17 @@ import { SUCCESS, shouldBlock } from '../../utils/status';
 
 
 class Profile extends React.Component {
-  goToRecommend = () => {
+  pushRecommended = () => {
     const {user, history} = this.props;
-    history.push(`/users/${user.id}/blogs/?recommend=all`);
+    history.push(`/users/${user.id}/blogs/?recommended=all`);
   };
 
-  goToLikes = () => {
+  pushLikes = () => {
     const {user, history} = this.props;
     history.push(`/users/${user.id}/likes/`);
   };
 
-  goToSettings = () => {
+  pushSettings = () => {
     const {history} = this.props;
     history.push(`/settings`);
   };
@@ -84,13 +84,13 @@ class Profile extends React.Component {
             </div>
           </div>
           <div className='gird-box'>
-            <div onClick={this.goToRecommend}>
+            <div onClick={this.pushRecommended}>
               <span>被推荐</span>
             </div>
-            <div onClick={this.goToLikes}>
+            <div onClick={this.pushLikes}>
               <span>收藏</span>
             </div>
-            <div onClick={this.goToSettings}>
+            <div onClick={this.pushSettings}>
               <span>设置</span>
             </div>
           </div>
