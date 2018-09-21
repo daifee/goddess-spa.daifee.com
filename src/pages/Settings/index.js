@@ -49,7 +49,7 @@ class Settings extends React.Component {
           </List.Item>
         </List>
 
-        {user.role === 'admin' ? (
+        {user && user.role === 'admin' ? (
           <React.Fragment>
             <WhiteSpace />
             <List>
