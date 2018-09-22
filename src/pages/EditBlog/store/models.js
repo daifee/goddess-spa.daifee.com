@@ -2,6 +2,7 @@
 import {ASYNC_STATE, PENDING, FAILURE, SUCCESS} from '../../../utils/status';
 import * as serviceBlog from '../../../services/microBlog';
 import * as servicePicture from '../../../services/picture';
+import * as profileStore from '../../Profile/store';
 
 const INIT_STATE = {
   ...ASYNC_STATE,
@@ -54,6 +55,7 @@ export const blog = {
         }
 
         const blog = await serviceBlog.post(userId, {text, pictureUrls});
+        profileStore.dispatch('blogList/addNewBlog', blog);
         this.setSuccess();
         return blog;
       } catch (error) {

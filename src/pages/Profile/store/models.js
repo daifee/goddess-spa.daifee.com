@@ -31,6 +31,11 @@ export const blogList = {
         message: '加载成功'
       };
     },
+    addNewBlog(state, blog) {
+      const data = [...state.data];
+      data.unshift(blog);
+      return {...state, data};
+    }
   },
 
   effects: {
