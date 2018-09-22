@@ -23,7 +23,7 @@ import {scopeModels as registerModels} from '../pages/Register/store';
 import {scopeModels as profileModels} from '../pages/Profile/store';
 import {scopeModels as userBlogListModels} from '../pages/UserBlogList/store';
 import {scopeModels as editBlogModels} from '../pages/EditBlog/store';
-
+import {scopeModels as userListModels} from '../pages/UserList/store';
 
 const store = init({
   name: 'store',
@@ -34,7 +34,8 @@ const store = init({
     ...registerModels,
     ...profileModels,
     ...userBlogListModels,
-    ...editBlogModels
+    ...editBlogModels,
+    ...userListModels
   }
 });
 
