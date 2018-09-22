@@ -1,13 +1,30 @@
 import React from 'react';
 import { List, TextareaItem, WingBlank, WhiteSpace, ImagePicker, NavBar } from 'antd-mobile';
+import {connect} from 'react-redux';
+import {getState, dispatch} from './store';
 import './styles.css';
 
 class EditBlog extends React.Component {
-  handleChange = (files, type, index) => {
-    console.log(files, type, index);
+  handleFilesChange = (files, type, index) => {
+    dispatch('blog/setFiles', files);
+  };
+
+  handleTextChange = (value) => {
+    dispatch('blog/setText', value);
+  };
+
+  handleCancel = () => {
+    const {history} = this.props;
+    history.goBack();
+  };
+
+  handlePublish = () => {
+    dispatch('blog/publish');
   };
 
   render() {
+    const {blog} = this.props;
+
     return (
       <main id='edit-blog'>
         <NavBar
@@ -28,7 +45,9 @@ class EditBlog extends React.Component {
 
         <List>
           <TextareaItem
+            onChange={this.handleTextChange}
             placeholder='请输入...'
+            value={blog.data.text}
             autoHeight
             rows={2}
             count={140}
@@ -39,9 +58,11 @@ class EditBlog extends React.Component {
 
         <WingBlank>
           <ImagePicker
-            files={[]}
-            onChange={this.handleChange}
-            selectable={true}
+            files={blog.data.files}
+            onChange={this.handleFilesChange}
+            selectable={blog.data.files.length < 9}
+            multiple
+            length={3}
           />
         </WingBlank>
       </main>
@@ -49,4 +70,7 @@ class EditBlog extends React.Component {
   }
 }
 
-export default EditBlog;
+export default connect((rootState, props) => {
+  const state = getState(rootState);
+  return {...props, blog: state.blog};
+})(EditBlog);
