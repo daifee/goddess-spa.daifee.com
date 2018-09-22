@@ -2,10 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {SubPage} from '../../components/Page';
 import {dispatch, getState} from './store';
+import UserList from '../../components/UserList';
+import { WhiteSpace } from 'antd-mobile';
 import './styles.css';
 import { SUCCESS, shouldBlock } from '../../utils/status';
 
-class UserList extends React.Component {
+class UserListPage extends React.Component {
   handleEndReached = () => {
     const {page, status} = this.props;
 
@@ -29,9 +31,16 @@ class UserList extends React.Component {
   }
 
   render() {
+    const {status, userList} = this.props;
+
     return (
       <SubPage id='user-list' navBar={{children: '所有用户'}}>
-        <h1>TODO</h1>
+        <WhiteSpace />
+        <UserList
+          userList={userList}
+          status={status}
+          onEndReached={this.handleEndReached}
+        />
       </SubPage>
     );
   }
@@ -47,4 +56,4 @@ export default connect((rootState, props) => {
     page: userList.page,
     ...props
   };
-})(UserList);
+})(UserListPage);

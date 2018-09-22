@@ -6,9 +6,9 @@ import BlogList from '../../components/BlogList';
 
 import {dispatch, getState} from './store';
 import { SUCCESS, shouldBlock } from '../../utils/status';
-
-import './styles.css';
 import { WhiteSpace } from 'antd-mobile';
+import './styles.css';
+
 
 
 class BlogListPage extends React.Component {
