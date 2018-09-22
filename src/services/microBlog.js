@@ -3,7 +3,7 @@ import {goddess} from '../utils/http';
 
 // 发博客
 export async function post(userId, blog) {
-  const api = `/v1/users/:userId/micro-blogs/`;
+  const api = `/v1/users/${userId}/micro-blogs/`;
   return await goddess.post(api, blog);
 }
 

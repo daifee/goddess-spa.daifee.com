@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, TextareaItem, WingBlank, WhiteSpace, ImagePicker, NavBar } from 'antd-mobile';
+import { Toast, List, TextareaItem, WingBlank, WhiteSpace, ImagePicker, NavBar } from 'antd-mobile';
 import {connect} from 'react-redux';
 import {getState, dispatch} from './store';
 import './styles.css';
@@ -18,8 +18,23 @@ class EditBlog extends React.Component {
     history.goBack();
   };
 
-  handlePublish = () => {
-    dispatch('blog/publish');
+  handlePublish = async () => {
+    const {blog, user, history} = this.props;
+
+    Toast.loading('发布中...');
+    const result = await dispatch('blog/publish', {
+      userId: user.id,
+      text: blog.data.text,
+      files: blog.data.files
+    });
+    Toast.hide();
+
+    if (result instanceof Error) {
+      Toast.fail(result.message);
+    } else {
+      Toast.success('发布成功!');
+      history.push(`/users/${user.id}`);
+    }
   };
 
   render() {
