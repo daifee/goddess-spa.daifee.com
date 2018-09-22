@@ -1,6 +1,12 @@
 
 import {goddess} from '../utils/http';
 
+export async function listForAdmin(page = 1, perPage = 10) {
+  const api = '/admin/blogs/';
+  return await goddess.get(api, {params: {page, perPage}});
+}
+
+
 // 发博客
 export async function post(userId, blog) {
   const api = `/v1/users/${userId}/micro-blogs/`;

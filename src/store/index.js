@@ -24,6 +24,7 @@ import {scopeModels as profileModels} from '../pages/Profile/store';
 import {scopeModels as userBlogListModels} from '../pages/UserBlogList/store';
 import {scopeModels as editBlogModels} from '../pages/EditBlog/store';
 import {scopeModels as userListModels} from '../pages/UserList/store';
+import {scopeModels as blogListModels} from '../pages/BlogList/store';
 
 const store = init({
   name: 'store',
@@ -35,7 +36,8 @@ const store = init({
     ...profileModels,
     ...userBlogListModels,
     ...editBlogModels,
-    ...userListModels
+    ...userListModels,
+    ...blogListModels
   }
 });
 
