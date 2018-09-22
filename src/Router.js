@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {TouristRoute, UserRoute} from './components/Route';
+import {TouristRoute, UserRoute, AdminRoute} from './components/Route';
 import {connect} from 'react-redux';
 import {ActivityIndicator} from 'antd-mobile';
 
@@ -65,12 +65,12 @@ const config = [
   {
     path: '/admin/users',
     component: UserList,
-    _route: UserRoute
+    _route: AdminRoute
   },
   {
     path: '/admin/blogs',
     component: BlogList,
-    _route: UserRoute
+    _route: AdminRoute
   },
   {
     exact: false,
