@@ -2,6 +2,7 @@
   "name": "goddess-spa.daifee.com",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://daifee.github.io/goddess-spa.daifee.com",
   "dependencies": {
     "@rematch/core": "^1.0.0-beta.4",
     "antd-mobile": "^2.2.5",
@@ -27,7 +28,8 @@
     "build-js": "react-app-rewired build",
     "build": "npm-run-all build-css build-js",
     "test": "react-app-rewired test --env=jsdom",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "deploy": "./scripts/deploy.sh"
   },
   "devDependencies": {
     "babel-plugin-import": "^1.8.0",
