@@ -15,7 +15,7 @@ export default function UserRouter({component: Component, ...rest}) {
         } else {
           const ref = encodeURIComponent(window.location.href);
           return (
-            <Redirect to={{pathname: `/login?ref=${ref}`}} />
+            <Redirect to={{pathname: '/login', search: `?ref=${ref}`}} />
           );
         }
       }}
