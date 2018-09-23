@@ -1,29 +1,3 @@
 # goddess-spa.daifee.com
 
-## 页面
-
-- 首页 Home
-  - [ ] 获取推荐博客
-  - [ ] 获取图片对象（多个）
-  - [ ] 收藏图片
-  - [ ] 取消收藏
-- 用户主页 Profile
-  - [ ] 获取用户博客列表
-  - [ ] 删除博客
-  - [ ] 获取图片对象（多个）
-  - [ ] 收藏图片
-  - [ ] 取消收藏
-- 设置
-- 关于
-- 用户收藏 Like
-  - [ ] 获取图片列表
-  - [ ] 收藏图片
-  - [ ] 取消收藏
-- 编辑微博 Edit
-  - [ ] 上传图片
-  - [ ] 发布新微博
-- 登录 Login
-  - [ ] 授权
-- 注册 Register
-  - [ ] 注册
-- 404 NotFound
+[https://daifee.github.io/goddess-spa.daifee.com/](https://daifee.github.io/goddess-spa.daifee.com/)

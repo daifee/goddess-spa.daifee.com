@@ -97,7 +97,9 @@ class Router extends React.Component {
     }
 
     return (
-      <BrowserRouter>
+      <BrowserRouter
+        basename='/goddess-spa.daifee.com'
+      >
         <Switch>
           {config.map(({_route: Route, ...rest}, index) => {
             // 默认 `exact=true`
