@@ -1,11 +1,12 @@
 # goddess-spa.daifee.com
 
-[goddess.daifee.com](goddess.daifee.com)SPA版
+SPA版
 
-- [goddess-spa.daifee.com](#goddess-spadaifeecom)
-  - [开发](#%E5%BC%80%E5%8F%91)
-  - [部署](#%E9%83%A8%E7%BD%B2)
-  - [访问](#%E8%AE%BF%E9%97%AE)
+访问
+[https://daifee.github.io/goddess-spa.daifee.com/](https://daifee.github.io/goddess-spa.daifee.com/)
+
+API项目[https://github.com/daifee/goddess.daifee.com](https://github.com/daifee/goddess.daifee.com)
+
 
 ## 开发
 
@@ -21,5 +22,3 @@
 
 > 托管在[Github Page](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/)
 
-## 访问
-[https://daifee.github.io/goddess-spa.daifee.com/](https://daifee.github.io/goddess-spa.daifee.com/)
